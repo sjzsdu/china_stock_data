@@ -1,4 +1,4 @@
-from stock_data.fetchers import index_fetchers
+from china_stock_data.fetchers import index_fetchers
 class StockMarket:
 
     def __init__(self, symbol):

@@ -26,7 +26,7 @@
 ## 使用说明
 ### 安装
 ```python
-from stock_data import StockData, StockMarket
+from china_stock_data import StockData, StockMarket
 
 # 个股数据示例
 stock_data = StockData('601688')

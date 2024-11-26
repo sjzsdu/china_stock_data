@@ -1,7 +1,7 @@
 import pytest
 import os
 from datetime import datetime, timedelta
-from stock_data import PersistentDict, TradingTimeChecker
+from china_stock_data import PersistentDict, TradingTimeChecker
 
 @pytest.fixture
 def setup_persistent_dict():

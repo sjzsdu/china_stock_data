@@ -2,8 +2,8 @@ import akshare as ak
 from .base_fetcher import BaseFetcher
 import pandas as pd
 from typing import Any
-from stock_data.config import MARKET_PATH, CSV_EXT
-from stock_data.utils import generate_stable_string
+from china_stock_data.config import MARKET_PATH, CSV_EXT
+from china_stock_data.utils import generate_stable_string
 
 class IndexListFetcher(BaseFetcher):
     """

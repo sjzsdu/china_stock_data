@@ -1,28 +1,27 @@
 import akshare as ak
 from .base_fetcher import BaseFetcher
 import pandas as pd
-from stock_data.config import CACHE_PATH, CSV_EXT
-from stock_data.utils import generate_stable_string
 from typing import Any
+from china_stock_data.config import CACHE_PATH, CSV_EXT
+from china_stock_data.utils import generate_stable_string
 
-class StockInfoFetcher(BaseFetcher):
+class StockRealtimeFetcher(BaseFetcher):
     """
-    获取股票信息
+    获取股票的实时交易数据
     """
-    name = 'info'
+    name = 'bid_ask'
     def __init__(self, stock_data: Any):
         self.stock_data = stock_data
         
-        original_file = f"{StockInfoFetcher.name}_"
+        original_file = f"{StockRealtimeFetcher.name}_"
         file = generate_stable_string(original_file) + CSV_EXT
         path = f"{CACHE_PATH}/{stock_data.symbol}/{file}"
-        
         super().__init__(path)
         
     def fetch_data(self):
         try:
-            print("Fetching stock info data!")
-            data = ak.stock_individual_info_em(
+            print("Fetching stock realtime data!")
+            data = ak.stock_bid_ask_em(
                 symbol=self.stock_data.symbol,
             )
             if data is None or data.empty:
@@ -31,7 +30,8 @@ class StockInfoFetcher(BaseFetcher):
         except Exception as e:
             print(f"Error fetching data: {e}")
             return pd.DataFrame()
-
+        
+        
     def __getitem__(self, key):
         data = self.fetch_and_cache_data()
         try:

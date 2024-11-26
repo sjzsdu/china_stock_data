@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
-from stock_data.config import HISTORY_DAYS
-from stock_data.fetchers import stock_fetchers
+from china_stock_data.config import HISTORY_DAYS
+from china_stock_data.fetchers import stock_fetchers
 
 
 class StockData:

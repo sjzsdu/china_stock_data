@@ -3,8 +3,8 @@ from unittest.mock import patch, MagicMock
 import pandas as pd
 import os
 from datetime import datetime
-from stock_data.fetchers import BaseFetcher, api_dict
-from stock_data import TradingTimeChecker, api_dict
+from china_stock_data.fetchers import BaseFetcher, api_dict
+from china_stock_data import TradingTimeChecker, api_dict
 
 class TestBaseFetcher(unittest.TestCase):
 

@@ -3,8 +3,8 @@ from .base_fetcher import BaseFetcher
 import pandas as pd
 from datetime import datetime
 from typing import Any
-from stock_data.config import CACHE_PATH, CSV_EXT
-from stock_data.utils import generate_stable_string
+from china_stock_data.config import CACHE_PATH, CSV_EXT
+from china_stock_data.utils import generate_stable_string
 
 class StockHistFetcher(BaseFetcher):
     """

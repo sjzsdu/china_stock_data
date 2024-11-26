@@ -2,9 +2,9 @@ import os
 import pandas as pd
 import time
 from datetime import datetime
-from stock_data.config import FETCHER_DEBOUNCE_TIME
-from stock_data import TradingTimeChecker
-from stock_data import api_dict 
+from china_stock_data.config import FETCHER_DEBOUNCE_TIME
+from china_stock_data import TradingTimeChecker
+from china_stock_data import api_dict 
 
 
 class BaseFetcher:
