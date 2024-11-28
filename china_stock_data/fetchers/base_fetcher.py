@@ -30,13 +30,16 @@ class BaseFetcher:
             os.makedirs(os.path.dirname(self.path), exist_ok=True)
             data.to_csv(self.path, index=False)
             api_dict.set(self.path, datetime.now().strftime('%Y-%m-%d'))
+            
+    def check_saved_date(self, saved_date):
+        return TradingTimeChecker.compare_with_nearest_trade_date(saved_date)
 
     def is_data_up_to_date(self, data):
         # 从api_dict中检索保存的日期
         saved_date = api_dict.get(self.path)
         if not saved_date:
             return False
-        return TradingTimeChecker.compare_with_nearest_trade_date(saved_date)
+        return self.check_saved_date(saved_date)
     
     def fetch_and_cache_data(self):
         if not TradingTimeChecker.is_trading_time():

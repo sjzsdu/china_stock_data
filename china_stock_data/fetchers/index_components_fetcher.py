@@ -3,7 +3,7 @@ from .base_fetcher import BaseFetcher
 import pandas as pd
 from typing import Any
 from china_stock_data.config import CACHE_PATH, CSV_EXT
-from china_stock_data.utils import generate_stable_string
+from china_stock_data.utils import generate_stable_string, is_within_days
 
 class IndexComponentsFetcher(BaseFetcher):
     """
@@ -29,6 +29,9 @@ class IndexComponentsFetcher(BaseFetcher):
         except Exception as e:
             print(f"Error fetching data: {e}")
             return pd.DataFrame()
+        
+    def check_saved_date(self, saved_date):
+        return is_within_days(saved_date)
         
     def fetch_and_cache_data(self):
         data = super().fetch_and_cache_data()

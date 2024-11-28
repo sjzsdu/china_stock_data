@@ -3,7 +3,7 @@ from .base_fetcher import BaseFetcher
 import pandas as pd
 from typing import Any
 from china_stock_data.config import MARKET_PATH, CSV_EXT
-from china_stock_data.utils import generate_stable_string
+from china_stock_data.utils import generate_stable_string, is_within_days
 
 class IndexListFetcher(BaseFetcher):
     """
@@ -16,6 +16,9 @@ class IndexListFetcher(BaseFetcher):
         file = generate_stable_string(original_file) + CSV_EXT
         path = f"{MARKET_PATH}/main/{file}"
         super().__init__(path)
+        
+    def check_saved_date(self, saved_date):
+        return is_within_days(saved_date)
         
     def fetch_data(self):
         try:

@@ -18,7 +18,7 @@ class StockData:
         self.type = type
         self.period = period
         self.adjust = adjust
-        self.days_key = '&'.join([start_date or '', end_date or '', days or ''])
+        self.days_key = '&'.join([start_date or '', end_date or '', str(days) or ''])
         self.days = days or HISTORY_DAYS
         self.end_date = end_date or datetime.now().strftime('%Y-%m-%d')
         if start_date:

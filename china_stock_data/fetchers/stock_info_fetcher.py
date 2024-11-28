@@ -2,7 +2,7 @@ import akshare as ak
 from .base_fetcher import BaseFetcher
 import pandas as pd
 from china_stock_data.config import CACHE_PATH, CSV_EXT
-from china_stock_data.utils import generate_stable_string
+from china_stock_data.utils import generate_stable_string, is_within_days
 from typing import Any
 
 class StockInfoFetcher(BaseFetcher):
@@ -18,6 +18,10 @@ class StockInfoFetcher(BaseFetcher):
         path = f"{CACHE_PATH}/{stock_data.symbol}/{file}"
         
         super().__init__(path)
+        
+        
+    def check_saved_date(self, saved_date):
+        return is_within_days(saved_date)
         
     def fetch_data(self):
         try:
