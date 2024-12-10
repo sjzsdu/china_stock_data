@@ -1,17 +1,13 @@
 from china_stock_data.fetchers import index_fetchers
 class StockMarket:
 
-    def __init__(self, symbol):
+    def __init__(self, symbol = None, index = None):
         self.symbol = symbol
+        self.index = index
         self.fetchers = {}
         for fetcher in index_fetchers:
             self.fetchers[fetcher.name] = fetcher(self)
         
-    def get_data(self, data_type: str):
-        if data_type not in self.fetches:
-            raise ValueError(f"Unknown data type: {data_type}")
-        return self.fetches[data_type].fetch_and_cache_data()
-    
     def get_data(self, name: str):
         if name not in self.fetchers:
             raise ValueError(f"Unknown data type: {name}")
@@ -30,4 +26,3 @@ class StockMarket:
             except KeyError:
                 continue 
         raise KeyError(f"Key '{key}' not found in any fetcher")
-
