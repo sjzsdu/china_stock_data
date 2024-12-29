@@ -9,3 +9,6 @@ from .market_motion_fetcher import MarketMotionFetcher
 from .us_index_fetcher import UsIndexFetcher
 stock_fetchers = [StockHistFetcher, StockInfoFetcher, StockChipFetcher, StockRealtimeFetcher]
 index_fetchers = [IndexComponentsFetcher, IndexListFetcher, MarketMotionFetcher, UsIndexFetcher]
+
+
+__version__ = '0.1.7'

@@ -2,14 +2,22 @@ import pytest
 import os
 from datetime import datetime, timedelta
 from china_stock_data import PersistentDict, TradingTimeChecker
+import tempfile
+import shutil
 
 @pytest.fixture
 def setup_persistent_dict():
-    filename = 'test_trade_dates_cache.json'
-    pdict = PersistentDict(filename)
+    # 创建临时目录和文件
+    temp_dir = tempfile.mkdtemp()
+    temp_file = os.path.join(temp_dir, 'test_dict.json')
+    
+    # 创建 PersistentDict 实例
+    pdict = PersistentDict(temp_file)
+    
     yield pdict
-    if os.path.exists(filename):
-        os.remove(filename)
+    
+    # 清理
+    shutil.rmtree(temp_dir)
 
 def test_persistent_dict(setup_persistent_dict):
     pdict = setup_persistent_dict

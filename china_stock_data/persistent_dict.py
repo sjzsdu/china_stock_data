@@ -4,6 +4,11 @@ from .config import API_DICT_FILE, APP_DICT_FILE
 class PersistentDict:
     def __init__(self, filename):
         self.filename = filename
+        if not filename:
+            raise ValueError("Filename cannot be empty")
+        dirname = os.path.dirname(self.filename)
+        if dirname:
+            os.makedirs(dirname, exist_ok=True)
         self.data = self._load_dict_from_file()
 
     def _load_dict_from_file(self):
@@ -15,6 +20,7 @@ class PersistentDict:
 
     def _save_dict_to_file(self):
         """Save the dictionary to a file."""
+        os.makedirs(os.path.dirname(self.filename), exist_ok=True)
         with open(self.filename, 'w') as file:
             json.dump(self.data, file)
 
@@ -36,6 +42,10 @@ class PersistentDict:
     def get_all(self):
         """Get the entire dictionary."""
         return self.data
+
+    def has(self, key):
+        """Check if a key exists in the dictionary."""
+        return key in self.data
 
 api_dict = PersistentDict(API_DICT_FILE)
 app_dict = PersistentDict(APP_DICT_FILE)

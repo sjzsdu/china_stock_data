@@ -11,6 +11,11 @@ class BaseFetcher:
     def __init__(self, path: str):
         self.path = path
         self.last_call_time = None
+        # 确保目录存在
+        if path:
+            dirname = os.path.dirname(path)
+            if dirname:
+                os.makedirs(dirname, exist_ok=True)
 
     def fetch_data(self):
         raise NotImplementedError("Subclasses should implement this method.")
@@ -26,10 +31,14 @@ class BaseFetcher:
         return pd.DataFrame()
 
     def save_data_to_csv(self, data):
-        if not data.empty:
-            os.makedirs(os.path.dirname(self.path), exist_ok=True)
-            data.to_csv(self.path, index=False)
-            api_dict.set(self.path, datetime.now().strftime('%Y-%m-%d'))
+        """Save data to CSV file."""
+        # 确保目录存在
+        if self.path:
+            dirname = os.path.dirname(self.path)
+            if dirname:
+                os.makedirs(dirname, exist_ok=True)
+        data.to_csv(self.path, index=False)
+        api_dict.set(self.path, datetime.now().strftime('%Y-%m-%d'))
             
     def check_saved_date(self, saved_date):
         return TradingTimeChecker.compare_with_nearest_trade_date(saved_date)
