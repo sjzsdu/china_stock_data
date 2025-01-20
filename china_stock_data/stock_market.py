@@ -7,6 +7,9 @@ class StockMarket:
         self.fetchers = {}
         for fetcher in index_fetchers:
             self.fetchers[fetcher.name] = fetcher(self)
+            
+    def key(self):
+        return self.symbol if self.symbol else f'I{self.index}'
         
     def get_data(self, name: str):
         if name not in self.fetchers:

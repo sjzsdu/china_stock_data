@@ -24,7 +24,7 @@ class StockHistFetcher(BaseFetcher):
         start_date_formatted = datetime.strptime(self.stock_data.start_date, '%Y-%m-%d').strftime('%Y%m%d')
         end_date_formatted = datetime.strptime(self.stock_data.end_date, '%Y-%m-%d').strftime('%Y%m%d')
         try:
-            print("Fetching stock hist data!")
+            print("Fetching stock history data!", self.stock_data.symbol)
             data = ak.stock_zh_a_hist(
                 symbol=self.stock_data.symbol,
                 period=self.stock_data.period,

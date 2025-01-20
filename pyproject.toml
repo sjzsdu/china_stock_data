@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "china-stock-data"
-version = "0.1.7"
+version = "0.1.8"
 description = ""
 authors = ["sunjuzhong <129019668+sunjuzhong@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-akshare = "^1.15.32"
+akshare = "^1.15.78"
 pandas = "^2.2.3"
 
 [tool.poetry.group.dev.dependencies]

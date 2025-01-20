@@ -2,7 +2,7 @@ import akshare as ak
 from .base_fetcher import BaseFetcher
 import pandas as pd
 from typing import Any
-from china_stock_data.config import CACHE_PATH, CSV_EXT
+from china_stock_data.config import MARKET_PATH, CSV_EXT
 from china_stock_data.utils import generate_stable_string, is_within_days
 
 class IndexComponentsFetcher(BaseFetcher):
@@ -14,15 +14,15 @@ class IndexComponentsFetcher(BaseFetcher):
         self.stock_market = stock_market
         original_file = f"{IndexComponentsFetcher.name}_"
         file = generate_stable_string(original_file) + CSV_EXT
-        path = f"{CACHE_PATH}/{stock_market.symbol}/{file}"
+        path = f"{MARKET_PATH}/{stock_market.key()}/{file}"
         super().__init__(path)
         
     def fetch_data(self):
-        if self.stock_market.symbol is None:
+        if self.stock_market.index is None:
             return pd.DataFrame()
         try:
             print("Fetching index components data!")
-            data = ak.index_stock_cons_csindex(self.stock_market.symbol)
+            data = ak.index_stock_cons_csindex(self.stock_market.index)
             if data is None or data.empty:
                 raise ValueError("No data returned from the API.")
             return data
