@@ -18,10 +18,10 @@ class IndexComponentsFetcher(BaseFetcher):
         super().__init__(path)
         
     def fetch_data(self):
+        print('featch index components', self.stock_market.index)
         if self.stock_market.index is None:
             return pd.DataFrame()
         try:
-            print("Fetching index components data!")
             data = ak.index_stock_cons_csindex(self.stock_market.index)
             if data is None or data.empty:
                 raise ValueError("No data returned from the API.")
