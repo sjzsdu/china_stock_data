@@ -2,13 +2,14 @@ import json
 import os
 from .config import API_DICT_FILE, APP_DICT_FILE
 from threading import Lock
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 class PersistentDict:
     def __init__(self, filename: str):
-        self.filename = filename
         if not filename:
             raise ValueError("Filename cannot be empty")
+        
+        self.filename = os.path.abspath(filename)
         os.makedirs(os.path.dirname(self.filename), exist_ok=True)
         self.data: Dict[str, Any] = self._load_dict_from_file()
         self.lock = Lock()

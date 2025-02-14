@@ -1,14 +1,5 @@
-import os
-
-# 获取包的根目录
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# 设置数据存储目录
-DATA_DIR = os.path.join(BASE_DIR, 'data')
-
-# 设置字典文件路径
-API_DICT_FILE = os.path.join(DATA_DIR, 'api_dict.json')
-APP_DICT_FILE = os.path.join(DATA_DIR, 'app_dict.json')
+API_DICT_FILE = 'api_dict.json'
+APP_DICT_FILE = 'app_dict.json'
 
 CACHE_PATH = "cache"
 MARKET_PATH = "market"
