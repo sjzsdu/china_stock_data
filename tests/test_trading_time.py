@@ -31,12 +31,15 @@ def test_persistent_dict(setup_persistent_dict):
 
 @pytest.fixture
 def setup_trading_time_checker():
+    # 创建临时目录和文件
+    temp_dir = tempfile.mkdtemp()
+    temp_file = os.path.join(temp_dir, 'test_trade_dates_cache.json')
+
     # 使用临时缓存文件进行测试
-    TradingTimeChecker.appDict = PersistentDict('test_trade_dates_cache.json')
+    TradingTimeChecker.appDict = PersistentDict(temp_file)
     yield
     # 清理测试缓存文件
-    if os.path.exists('test_trade_dates_cache.json'):
-        os.remove('test_trade_dates_cache.json')
+    shutil.rmtree(temp_dir)
 
 def test_is_trading_time(setup_trading_time_checker):
     # 假设今天是交易日，并在交易时间内

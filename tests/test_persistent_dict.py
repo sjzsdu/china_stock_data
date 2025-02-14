@@ -9,7 +9,9 @@ class TestPersistentDict(unittest.TestCase):
     def setUp(self):
         # 创建临时目录用于测试
         self.test_dir = tempfile.mkdtemp()
-        self.test_file = os.path.join(self.test_dir, 'test_data', 'test_dict.json')
+        test_data_dir = os.path.join(self.test_dir, 'test_data')
+        os.makedirs(test_data_dir, exist_ok=True)
+        self.test_file = os.path.join(test_data_dir, 'test_dict.json')
         self.test_dict = PersistentDict(self.test_file)
 
     def tearDown(self):
@@ -82,4 +84,4 @@ class TestPersistentDict(unittest.TestCase):
         self.assertFalse(self.test_dict.has('non_existent_key'))
 
 if __name__ == '__main__':
-    unittest.main() 
+    unittest.main()

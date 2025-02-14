@@ -49,16 +49,22 @@ chip_data = stock.chip
 from china_stock_data import StockMarket
 
 # 创建市场数据对象
-market = StockMarket()
+market = StockMarket(symbol='000001') # or market = StockMarket(index='000001')
 
 # 获取指数成分股
-components = market.index_components('000001')  # 上证指数
+components = market.index_components  # 上证指数
 
 # 获取指数列表
 index_list = market.index_list
 
 # 获取市场动态
 market_motion = market.market_motion
+
+# 示例:
+# market = StockMarket(symbol='600000')
+# print(market.key()) # Output: 600000
+# print(market.get_data('index_components'))
+# print(market['index_components'])
 ```
 
 ## 安装方法
@@ -104,7 +110,7 @@ pytest tests/test_base_fetcher.py
 
 ### 代码风格
 
-项目使用 Python 3.8+ 的类型注解，并遵循 PEP 8 规范。
+项目使用 Python 3.10+ 的类型注解，并遵循 PEP 8 规范。
 
 ## 贡献指南
 
@@ -116,7 +122,7 @@ pytest tests/test_base_fetcher.py
 
 ## 版本历史
 
-- 0.1.7: 当前版本
+- 0.1.10: 当前版本
   - 增加数据持久化功能
   - 优化交易时间判断
   - 完善测试用例
@@ -128,7 +134,7 @@ pytest tests/test_base_fetcher.py
 ## 联系方式
 
 - 邮箱：122828837@qq.com
-- Issues：[GitHub Issues](https://github.com/your-username/china-stock-data/issues)
+- Issues：[GitHub Issues](https://github.com/sjzsdu/china-stock-data/issues)
 
 ## 致谢
 
