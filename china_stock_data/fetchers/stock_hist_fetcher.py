@@ -23,22 +23,22 @@ class StockHistFetcher(BaseFetcher):
     def fetch_data(self):
         start_date_formatted = datetime.strptime(self.stock_data.start_date, '%Y-%m-%d').strftime('%Y%m%d')
         end_date_formatted = datetime.strptime(self.stock_data.end_date, '%Y-%m-%d').strftime('%Y%m%d')
-        try:
-            print("Fetching stock history data!", self.stock_data.symbol)
-            data = ak.stock_zh_a_hist(
-                symbol=self.stock_data.symbol,
-                period=self.stock_data.period,
-                start_date=start_date_formatted,
-                end_date=end_date_formatted,
-                adjust=self.stock_data.adjust
-            )
-            if data is None or data.empty:
-                raise ValueError("No data returned from the API.")
-            self.handle_data(data)
-            return data
-        except Exception as e:
-            print(f"Error fetching data: {e}")
-            return pd.DataFrame()
+        # try:
+        print("Fetching stock history data!", self.stock_data.symbol)
+        data = ak.stock_zh_a_hist(
+            symbol=self.stock_data.symbol,
+            period=self.stock_data.period,
+            start_date=start_date_formatted,
+            end_date=end_date_formatted,
+            adjust=self.stock_data.adjust
+        )
+        if data is None or data.empty:
+            raise ValueError("No data returned from the API.")
+        self.handle_data(data)
+        return data
+        # except Exception as e:
+        #     print(f"Error fetching data: {e}")
+        #     return pd.DataFrame()
         
     def handle_data(self, data: pd.DataFrame):
         # 计算最高、最低和平均值
@@ -48,6 +48,13 @@ class StockHistFetcher(BaseFetcher):
         data['平均'] = (data['最低'] + data['最高']) / 2  
         data['加权平均'] = data['成交额'] / data['成交量'] / 100     
         self.factors['加权平均'] = (data['平均'] * data['成交量']).sum() / data['成交量'].sum()
+        
+        first = data.iloc[0]
+        last = data.iloc[-1]
+        self.factors['涨跌额'] = last['收盘'] - first['收盘']
+        self.factors['涨跌幅'] = (last['收盘'] - first['收盘']) * 100 / first['收盘']
+        
+        
 
         
     def __getitem__(self, key):
