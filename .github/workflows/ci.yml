@@ -1,0 +1,118 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python -
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: Configure Poetry
+      run: |
+        poetry config virtualenvs.create true
+        poetry config virtualenvs.in-project true
+
+    - name: Cache Poetry dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
+        restore-keys: |
+          venv-${{ runner.os }}-${{ matrix.python-version }}-
+
+    - name: Install dependencies
+      run: |
+        poetry install --no-interaction
+
+    - name: Run tests
+      run: |
+        poetry run pytest tests/ -v --tb=short --cov=china_stock_data --cov-report=xml
+
+    - name: Check import structure
+      run: |
+        poetry run python -c "from china_stock_data import StockData, StockMarket; print('✅ Imports working correctly')"
+
+    - name: Validate fetcher structure
+      run: |
+        poetry run python -c "
+        from china_stock_data import StockData, StockMarket
+        stock = StockData('000001')
+        market = StockMarket()
+        print(f'Stock fetchers: {list(stock.fetchers.keys())}')
+        print(f'Market fetchers: {list(market.fetchers.keys())}')
+        print('✅ Fetcher structure validated')
+        "
+
+    - name: Upload coverage reports
+      if: matrix.python-version == '3.12'
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python -
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: Install dependencies
+      run: |
+        poetry install --no-interaction
+
+    - name: Check code syntax
+      run: |
+        poetry run python -m py_compile china_stock_data/**/*.py
+
+    - name: Validate package structure
+      run: |
+        poetry run python -c "
+        import os
+        # Check fetcher directories exist
+        assert os.path.exists('china_stock_data/fetchers/stock'), 'Stock fetcher directory missing'
+        assert os.path.exists('china_stock_data/fetchers/index'), 'Index fetcher directory missing'
+        assert os.path.exists('china_stock_data/fetchers/market'), 'Market fetcher directory missing'
+        print('✅ Package structure validated')
+        "
+
+    - name: Check examples
+      run: |
+        poetry run python -c "
+        import os
+        examples = ['quick_start.ipynb', 'professional_analysis.ipynb', 'portfolio_analysis.ipynb']
+        for example in examples:
+            assert os.path.exists(f'examples/{example}'), f'Example {example} missing'
+        print('✅ Examples validated')
+        "
