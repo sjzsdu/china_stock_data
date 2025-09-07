@@ -36,7 +36,7 @@ This directory contains Jupyter notebook examples demonstrating how to use the C
 
 ### Prerequisites
 ```bash
-pip install china-stock-data
+pip install china_stock_data
 pip install matplotlib pandas numpy
 ```
 

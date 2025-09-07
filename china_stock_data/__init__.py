@@ -1,6 +1,6 @@
 try:
     from importlib.metadata import version
-    __version__ = version("china-stock-data")
+    __version__ = version("china_stock_data")
 except ImportError:
     from .__version__ import __version__
 
