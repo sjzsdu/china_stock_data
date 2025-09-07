@@ -1,5 +1,5 @@
 import akshare as ak
-from .base_fetcher import BaseFetcher
+from ..base_fetcher import BaseFetcher
 import pandas as pd
 from datetime import datetime
 from typing import Any

@@ -19,15 +19,7 @@ class TestStockFetchers(unittest.TestCase):
     @patch('china_stock_data.fetchers.stock.hist_fetcher.ak.stock_zh_a_hist')
     def test_stock_hist_fetcher(self, mock_ak):
         """Test StockHistFetcher functionality."""
-        mock_ak.return_value = pd.DataFrame({
-            '日期': ['2023-01-01', '2023-01-02', '2023-01-03'],
-            '开盘': [100, 101, 102],
-            '收盘': [101, 102, 103],
-            '最高': [102, 103, 104],
-            '最低': [99, 100, 101],
-            '成交量': [1000, 1100, 1200],
-            '成交额': [10000000, 11000000, 12000000]
-        })
+        mock_ak.return_value = pd.DataFrame({'price': [100, 101, 102]})
         
         fetcher = StockHistFetcher(self.mock_stock_data)
         result = fetcher.fetch_data()
