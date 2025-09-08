@@ -7,3 +7,5 @@ api_dict.json
 app_dict.json
 .ipynb_checkpoints
 site
+/market/
+/index/
