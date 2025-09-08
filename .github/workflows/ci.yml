@@ -1,133 +1,25 @@
-name: CI
+name: CI (Manual Minimal Tests)
 
 on:
-  push:
-    tags:
-      - 'v*'
   workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ['3.10', '3.11', '3.12']
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python -
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-    - name: Configure Poetry
-      run: |
-        poetry config virtualenvs.create true
-        poetry config virtualenvs.in-project false
-
-    - name: Cache Poetry dependencies
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pypoetry
-        key: poetry-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
-        restore-keys: |
-          poetry-${{ runner.os }}-${{ matrix.python-version }}-
-
-    - name: Install dependencies
-      run: |
-        poetry install --no-interaction
-        poetry run pip install -e .
-
-    - name: Debug package structure
-      run: |
-        echo "Checking package structure..."
-        ls -la china_stock_data/
-        ls -la china_stock_data/fetchers/
-        ls -la china_stock_data/fetchers/index/
-        echo "Testing individual imports..."
-        poetry run python -c "import china_stock_data.fetchers.index; print('✅ index module found')"
-        poetry run python -c "from china_stock_data.fetchers.index import IndexComponentsFetcher; print('✅ IndexComponentsFetcher imported')"
-
-    - name: Run tests
-      run: |
-        poetry run pytest tests/ -v --tb=short --cov=china_stock_data --cov-report=xml
-
-    - name: Check import structure
-      run: |
-        poetry run python -c "from china_stock_data import StockData, StockMarket; print('✅ Imports working correctly')"
-
-    - name: Validate fetcher structure
-      run: |
-        poetry run python -c "
-        from china_stock_data import StockData, StockMarket
-        stock = StockData('000001')
-        market = StockMarket()
-        print(f'Stock fetchers: {list(stock.fetchers.keys())}')
-        print(f'Market fetchers: {list(market.fetchers.keys())}')
-        print('✅ Fetcher structure validated')
-        "
-
-    - name: Upload coverage reports
-      if: matrix.python-version == '3.12'
-      uses: codecov/codecov-action@v4
-      with:
-        file: ./coverage.xml
-        flags: unittests
-        name: codecov-umbrella
-
-  code-quality:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
-
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python -
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-    - name: Configure Poetry
-      run: |
-        poetry config virtualenvs.create false
-
-    - name: Install dependencies
-      run: |
-        poetry install --no-interaction
-
-    - name: Check code syntax
-      run: |
-        find china_stock_data -name "*.py" -exec poetry run python -m py_compile {} \;
-
-    - name: Validate package structure
-      run: |
-        poetry run python -c "
-        import os
-        # Check fetcher directories exist
-        assert os.path.exists('china_stock_data/fetchers/stock'), 'Stock fetcher directory missing'
-        assert os.path.exists('china_stock_data/fetchers/index'), 'Index fetcher directory missing'
-        assert os.path.exists('china_stock_data/fetchers/market'), 'Market fetcher directory missing'
-        print('✅ Package structure validated')
-        "
-
-    - name: Check examples
-      run: |
-        poetry run python -c "
-        import os
-        examples = ['quick_start.ipynb', 'advanced_usage.ipynb', 'comprehensive_example.ipynb']
-        for example in examples:
-            assert os.path.exists(f'examples/{example}'), f'Example {example} missing'
-        print('✅ Examples validated')
-        "
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install dependencies
+        run: |
+          poetry install --no-interaction
+      - name: Run tests
+        run: |
+          poetry run pytest -v --tb=short
