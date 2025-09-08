@@ -5,6 +5,5 @@ cache
 dist
 api_dict.json
 app_dict.json
-market
 .ipynb_checkpoints
 site
