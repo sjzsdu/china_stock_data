@@ -6,7 +6,7 @@ authors = ["sunjuzhong <129019668+sunjuzhong@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 akshare = "^1.15.0"
 pandas = "^2.2.3"
 

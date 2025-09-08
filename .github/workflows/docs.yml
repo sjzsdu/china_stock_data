@@ -2,9 +2,9 @@ name: Deploy Documentation
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    tags:
+      - 'v*'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -34,14 +34,7 @@ jobs:
 
       - name: Configure Poetry
         run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
-
-      - name: Cache Poetry dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-docs-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
+          poetry config virtualenvs.create false
 
       - name: Install dependencies
         run: |
@@ -53,17 +46,14 @@ jobs:
           poetry run mkdocs build --clean --strict
 
       - name: Setup Pages
-        if: github.ref == 'refs/heads/master'
         uses: actions/configure-pages@v3
 
       - name: Upload artifact
-        if: github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@v2
         with:
           path: site
 
   deploy:
-    if: github.ref == 'refs/heads/master'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master, develop ]
-  pull_request:
-    branches: [ master, develop ]
+    tags:
+      - 'v*'
+  workflow_dispatch:
 
 jobs:
   test:
@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.10', '3.11', '3.12']
 
     steps:
     - name: Checkout code
@@ -31,19 +31,30 @@ jobs:
     - name: Configure Poetry
       run: |
         poetry config virtualenvs.create true
-        poetry config virtualenvs.in-project true
+        poetry config virtualenvs.in-project false
 
     - name: Cache Poetry dependencies
       uses: actions/cache@v3
       with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
+        path: ~/.cache/pypoetry
+        key: poetry-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
         restore-keys: |
-          venv-${{ runner.os }}-${{ matrix.python-version }}-
+          poetry-${{ runner.os }}-${{ matrix.python-version }}-
 
     - name: Install dependencies
       run: |
         poetry install --no-interaction
+        poetry run pip install -e .
+
+    - name: Debug package structure
+      run: |
+        echo "Checking package structure..."
+        ls -la china_stock_data/
+        ls -la china_stock_data/fetchers/
+        ls -la china_stock_data/fetchers/index/
+        echo "Testing individual imports..."
+        poetry run python -c "import china_stock_data.fetchers.index; print('✅ index module found')"
+        poetry run python -c "from china_stock_data.fetchers.index import IndexComponentsFetcher; print('✅ IndexComponentsFetcher imported')"
 
     - name: Run tests
       run: |
@@ -88,13 +99,17 @@ jobs:
         curl -sSL https://install.python-poetry.org | python -
         echo "$HOME/.local/bin" >> $GITHUB_PATH
 
+    - name: Configure Poetry
+      run: |
+        poetry config virtualenvs.create false
+
     - name: Install dependencies
       run: |
         poetry install --no-interaction
 
     - name: Check code syntax
       run: |
-        poetry run python -m py_compile china_stock_data/**/*.py
+        find china_stock_data -name "*.py" -exec poetry run python -m py_compile {} \;
 
     - name: Validate package structure
       run: |
@@ -111,7 +126,7 @@ jobs:
       run: |
         poetry run python -c "
         import os
-        examples = ['quick_start.ipynb', 'professional_analysis.ipynb', 'portfolio_analysis.ipynb']
+        examples = ['quick_start.ipynb', 'advanced_usage.ipynb', 'comprehensive_example.ipynb']
         for example in examples:
             assert os.path.exists(f'examples/{example}'), f'Example {example} missing'
         print('✅ Examples validated')
