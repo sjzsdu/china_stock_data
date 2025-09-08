@@ -9,8 +9,9 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Tests](https://github.com/sjzsdu/china_stock_data/workflows/CI/badge.svg)](https://github.com/sjzsdu/china_stock_data/actions)
 [![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen.svg)](#)
+[![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](https://sjzsdu.github.io/china_stock_data/)
 
-[🚀 快速开始](#-快速开始) • [📖 文档](#-功能特性) • [💡 示例](#-使用示例) • [🤝 贡献](#-贡献)
+ [🚀 快速开始](#-快速开始) • [📖 在线文档](https://sjzsdu.github.io/china_stock_data/) • [💡 示例](#-使用示例) • [🤝 贡献](#-贡献)
 
 </div>
 
