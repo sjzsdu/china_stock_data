@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-akshare = "^1.15.0"
+akshare = "^1.17.0"
 pandas = "^2.2.3"
 
 [tool.poetry.group.dev.dependencies]
