@@ -23,15 +23,16 @@ class MarginFinancingFetcher(BaseFetcher):
 
     def fetch_data(self) -> pd.DataFrame:
         try:
-            sh = ak.stock_margin_sh()
-            sz = ak.stock_margin_sz()
+            # Use available margin functions
+            sh = ak.stock_margin_sse()
+            sz = ak.stock_margin_szse()
             if sh is None or sh.empty:
                 sh = pd.DataFrame()
             if sz is None or sz.empty:
                 sz = pd.DataFrame()
-            if not sh.empty and '日期' in sh.columns:
+            if not sh.empty:
                 sh['market'] = 'SH'
-            if not sz.empty and '日期' in sz.columns:
+            if not sz.empty:
                 sz['market'] = 'SZ'
             data = pd.concat([sh, sz], ignore_index=True, sort=False)
             return data

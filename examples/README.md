@@ -23,6 +23,11 @@ This directory contains Jupyter notebook examples demonstrating how to use the C
 - **Best for**: Traders and technical analysts
 
 ### 3. **portfolio_analysis.ipynb** - Portfolio Management 💼
+
+### 4. **p0_fetchers_demo.ipynb** - P0级核心数据接口示例 🏆
+- **Purpose**: 展示所有P0级 AkShare fetcher 的用法
+- **Content**: 北向持股、融资融券、龙虎榜、资金流、三大财务、业绩快报/预告、分红、增减持、解禁、前十大流通股东、大宗交易、回购等
+- **Best for**: 需要批量获取核心因子、事件和市场数据的用户
 - **Purpose**: Advanced portfolio and market analysis
 - **Content**:
   - Multi-stock portfolio analysis
@@ -40,11 +45,14 @@ pip install china_stock_data
 pip install matplotlib pandas numpy
 ```
 
+
 ### Recommended Learning Path
 
+
 1. **Start Here**: `quick_start.ipynb` - Master the basics in 5 minutes ⏱️
-2. **Level Up**: `professional_analysis.ipynb` - Learn technical analysis 📊
-3. **Go Pro**: `portfolio_analysis.ipynb` - Advanced portfolio management 💼
+2. **核心数据**: `p0_fetchers_demo.ipynb` - 一站式获取主流行情、资金、财务、事件等数据 🏆
+3. **Level Up**: `professional_analysis.ipynb` - Learn technical analysis 📊
+4. **Go Pro**: `portfolio_analysis.ipynb` - Advanced portfolio management 💼
 
 ## 📊 What You'll Learn
 
