@@ -1,8 +1,8 @@
 API_DICT_FILE = 'api_dict.json'
 APP_DICT_FILE = 'app_dict.json'
 
-CACHE_PATH = "cache"
-MARKET_PATH = "market"
+CACHE_PATH = ".data_cache"
+MARKET_PATH = ".market_cache"
 PRICE_COL = "收盘"
 DATE_COL= "日期"
 SYMBOL_COL = "股票代码"

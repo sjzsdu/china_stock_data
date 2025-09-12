@@ -1,6 +1,8 @@
 .pytest_cache
 .pbynb_checkpoints
 cache
+.data_cache
+.market_data
 **/__pycache__/*.*
 dist
 api_dict.json
@@ -11,3 +13,7 @@ site
 /index/
 /examples/market/
 /examples/cache/
+.data_cache
+.market_cache
+.index_cache
+.depcheck_venv
