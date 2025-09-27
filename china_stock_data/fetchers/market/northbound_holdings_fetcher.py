@@ -10,7 +10,7 @@ class NorthboundHoldingsFetcher(BaseFetcher):
     ak: stock_hsgt_hold_stock_em 每日全量, 需按 symbol 过滤
     当前实现: 缓存整表, 上层可自行过滤
     """
-    name = "northbound_holdings"
+    name = "northbound_holdings|stock_hsgt_hold_stock_em"
 
     def __init__(self, stock_market):
         self.stock_market = stock_market

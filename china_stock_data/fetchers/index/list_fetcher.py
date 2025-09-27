@@ -9,7 +9,7 @@ class IndexListFetcher(BaseFetcher):
     """
     获取所有的指数
     """
-    name = 'index_list'
+    name = 'index_list|index_stock_info'
     def __init__(self, stock_market: Any):
         self.stock_market = stock_market
         original_file = f"{IndexListFetcher.name}_"

@@ -7,7 +7,7 @@ from china_stock_data.utils import generate_stable_string, is_within_days
 
 class EarningsFetcher(BaseFetcher):
     """业绩快报 + 业绩预告 (symbol 聚合)"""
-    name = "earnings"
+    name = "earnings|stock_yjbb_em|stock_yjyg_em"
 
     def __init__(self, stock_data):
         self.stock_data = stock_data

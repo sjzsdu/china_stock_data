@@ -7,7 +7,7 @@ from china_stock_data.utils import generate_stable_string, is_within_days
 
 class RepurchaseFetcher(BaseFetcher):
     """股份回购"""
-    name = "repurchase"
+    name = "repurchase|stock_repurchase_em"
 
     def __init__(self, stock_data):
         self.stock_data = stock_data

@@ -7,7 +7,7 @@ from china_stock_data.utils import generate_stable_string, is_within_days
 
 class RestrictedReleaseFetcher(BaseFetcher):
     """限售解禁队列"""
-    name = "restricted_release"
+    name = "restricted_release|stock_restricted_release_queue_em"
 
     def __init__(self, stock_data):
         self.stock_data = stock_data

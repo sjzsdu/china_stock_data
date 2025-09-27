@@ -9,7 +9,7 @@ class StockRealtimeFetcher(BaseFetcher):
     """
     获取股票的实时交易数据
     """
-    name = 'bid_ask'
+    name = 'bid_ask|stock_bid_ask_em'
     def __init__(self, stock_data: Any):
         self.stock_data = stock_data
         

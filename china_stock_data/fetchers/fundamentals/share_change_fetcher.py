@@ -7,7 +7,7 @@ from china_stock_data.utils import generate_stable_string
 
 class ShareChangeFetcher(BaseFetcher):
     """股东增减持 / 股本变动 (聚合)"""
-    name = "share_change"
+    name = "share_change|stock_share_change_em"
 
     def __init__(self, stock_data):
         self.stock_data = stock_data

@@ -9,7 +9,7 @@ class UsIndexFetcher(BaseFetcher):
     """
     美国指数，标普500
     """
-    name = 'us_index'
+    name = 'us_index|index_us_stock_sina'
     def __init__(self, stock_market: Any):
         self.stock_market = stock_market
         original_file = f"{UsIndexFetcher.name}_"

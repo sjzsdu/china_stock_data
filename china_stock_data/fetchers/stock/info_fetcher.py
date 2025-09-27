@@ -9,7 +9,7 @@ class StockInfoFetcher(BaseFetcher):
     """
     获取股票信息
     """
-    name = 'info'
+    name = 'info|stock_individual_info_em'
     def __init__(self, stock_data: Any):
         self.stock_data = stock_data
         

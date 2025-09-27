@@ -2,15 +2,16 @@ from datetime import datetime, timedelta
 from typing import Optional, Dict, Any
 import pandas as pd
 from china_stock_data.config import HISTORY_DAYS
-from china_stock_data.fetchers import stock_fetchers
+from china_stock_data.fetchers import stock_fetchers, fundamentals_fetchers
 
 
 class StockData:
     """
     Stock data class for fetching and managing stock-related data.
     
-    Supports various data types including historical prices, real-time data,
-    stock information, and chip distribution.
+    Supports various data types including:
+    - Basic data: historical prices, real-time data, stock information, chip distribution
+    - Fundamentals: dividends, earnings, financial statements, shareholdings, block trades
     """
     
     def __init__(
@@ -51,15 +52,24 @@ class StockData:
         
         # Initialize fetchers
         self.fetchers: Dict[str, Any] = {}
-        for fetcher in stock_fetchers:
-            self.fetchers[fetcher.name] = fetcher(self)
+        all_fetchers = stock_fetchers + fundamentals_fetchers
+        for fetcher in all_fetchers:
+            fetcher_instance = fetcher(self)
+            # Handle names with "|" separator
+            if "|" in fetcher.name:
+                names = fetcher.name.split("|")
+                for name in names:
+                    self.fetchers[name.strip()] = fetcher_instance
+            else:
+                self.fetchers[fetcher.name] = fetcher_instance
         
     def get_data(self, name: str) -> pd.DataFrame:
         """
         Get data by fetcher name.
         
         Args:
-            name: Fetcher name (e.g., "kline", "info", "bid_ask", "chip")
+            name: Fetcher name (e.g., "kline", "info", "bid_ask", "chip", "dividend", 
+                  "earnings", "financial_statements", "top_shareholders")
             
         Returns:
             DataFrame containing the requested data

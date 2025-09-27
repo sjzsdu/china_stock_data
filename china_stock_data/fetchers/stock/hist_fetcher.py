@@ -10,7 +10,7 @@ class StockHistFetcher(BaseFetcher):
     """
     获取股票的日线数据
     """
-    name = "kline"
+    name = "kline|stock_zh_a_hist"
     def __init__(self, stock_data: Any):
         self.stock_data = stock_data
         original_file = f"{StockHistFetcher.name}_{stock_data.days_key}_{stock_data.period}_{stock_data.adjust}"

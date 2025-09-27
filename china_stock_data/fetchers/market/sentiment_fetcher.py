@@ -9,7 +9,7 @@ class MarketSentimentFetcher(BaseFetcher):
     """
     Market sentiment index fetcher
     """
-    name = 'market_sentiment'
+    name = 'market_sentiment|index_news_sentiment_scope'
     def __init__(self, stock_market: Any):
         self.stock_market = stock_market
         original_file = f"{MarketSentimentFetcher.name}_"

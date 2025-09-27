@@ -7,7 +7,7 @@ from china_stock_data.utils import generate_stable_string
 
 class TopShareholdersFetcher(BaseFetcher):
     """前十大流通股东"""
-    name = "top_shareholders"
+    name = "top_shareholders|stock_gdfx_free_top_10_em"
 
     def __init__(self, stock_data):
         self.stock_data = stock_data

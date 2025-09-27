@@ -10,7 +10,7 @@ class StockFundFlowFetcher(BaseFetcher):
     当前选用 ak.stock_individual_fund_flow_rank()
     可扩展: 按日/3日/5日/10日分类拆分
     """
-    name = "fund_flow_rank"
+    name = "fund|stock_individual_fund_flow_rank"
 
     def __init__(self, stock_data):
         self.stock_data = stock_data

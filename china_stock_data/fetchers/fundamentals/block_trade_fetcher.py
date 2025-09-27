@@ -7,7 +7,7 @@ from china_stock_data.utils import generate_stable_string, is_within_days
 
 class BlockTradeFetcher(BaseFetcher):
     """大宗交易记录"""
-    name = "block_trade"
+    name = "block_trade|stock_block_trade_big_em"
 
     def __init__(self, stock_data):
         self.stock_data = stock_data

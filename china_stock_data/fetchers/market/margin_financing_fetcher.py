@@ -9,7 +9,7 @@ class MarginFinancingFetcher(BaseFetcher):
     """融资融券余额 (沪深) 合并表
     上证: stock_margin_sh  深证: stock_margin_sz -> 合并
     """
-    name = "margin_financing"
+    name = "margin_financing|stock_margin_sse|stock_margin_szse"
 
     def __init__(self, stock_market):
         self.stock_market = stock_market

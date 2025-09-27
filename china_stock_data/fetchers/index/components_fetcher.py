@@ -9,7 +9,7 @@ class IndexComponentsFetcher(BaseFetcher):
     """
     获取指定指数的成分股
     """
-    name = 'index_components'
+    name = 'index_components|index_stock_cons_csindex'
     def __init__(self, stock_market: Any):
         self.stock_market = stock_market
         original_file = f"{IndexComponentsFetcher.name}_"

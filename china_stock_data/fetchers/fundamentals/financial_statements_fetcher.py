@@ -9,7 +9,7 @@ class FinancialStatementsFetcher(BaseFetcher):
     """三大财务报表统一抓取: 利润表, 资产负债表, 现金流量表
     合并后增加 statement_type 标识; 由上层传入 symbol
     """
-    name = "financial_statements"
+    name = "financial_statements|stock_lrb_em|stock_zcfz_em|stock_xjll_em"
 
     def __init__(self, stock_data):
         self.stock_data = stock_data

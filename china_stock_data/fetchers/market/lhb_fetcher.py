@@ -7,7 +7,7 @@ from china_stock_data.utils import generate_stable_string, is_within_days
 
 class LHBFetcher(BaseFetcher):
     """龙虎榜明细"""
-    name = "lhb"
+    name = "lhb|stock_lhb_detail_em"
 
     def __init__(self, stock_market):
         self.stock_market = stock_market

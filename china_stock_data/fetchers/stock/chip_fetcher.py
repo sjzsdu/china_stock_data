@@ -10,7 +10,7 @@ class StockChipFetcher(BaseFetcher):
     """
     获取股票的筹码分布等
     """
-    name = "chip"
+    name = "chip|stock_cyq_em"
     def __init__(self, stock_data: Any):
         self.stock_data = stock_data
         original_file = f"{StockChipFetcher.name}_{stock_data.adjust}"

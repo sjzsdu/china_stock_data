@@ -7,7 +7,7 @@ from china_stock_data.utils import generate_stable_string
 
 class DividendFetcher(BaseFetcher):
     """分红派息情况"""
-    name = "dividend"
+    name = "dividend|stock_fhps_em"
 
     def __init__(self, stock_data):
         self.stock_data = stock_data
