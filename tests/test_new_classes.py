@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Test script for the new IndexMarket and StockMarket classes
+Test script for the new IndexMarket and MarketData classes
 """
 
-from china_stock_data import IndexMarket, StockMarket
+from china_stock_data import IndexMarket, MarketData
 
 def test_index_market():
     """Test IndexMarket class functionality"""
@@ -20,12 +20,12 @@ def test_index_market():
     
     print()
 
-def test_stock_market():
-    """Test StockMarket class functionality"""
-    print("Testing StockMarket...")
+def test_market_data():
+    """Test MarketData class functionality"""
+    print("Testing MarketData...")
     
     # Create market instance
-    market = StockMarket()
+    market = MarketData()
     print(f"StockMarket key: {market.key()}")
     
     # List available fetchers
@@ -37,5 +37,5 @@ def test_stock_market():
 
 if __name__ == "__main__":
     test_index_market()
-    test_stock_market()
+    test_market_data()
     print("Tests completed successfully!")

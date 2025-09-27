@@ -3,14 +3,14 @@
 Test script for market fetchers with improved name handling
 """
 
-from china_stock_data import StockMarket
+from china_stock_data import MarketData
 
 def test_market_fetchers():
     """Test the market fetchers with pipe separator names"""
     print("Testing market fetchers with pipe separator functionality...")
     
     # Create a market instance
-    market = StockMarket()
+    market = MarketData()
     
     print("Available market fetchers:")
     for name in sorted(market.fetchers.keys()):

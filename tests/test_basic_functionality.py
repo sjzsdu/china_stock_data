@@ -8,7 +8,7 @@ def test_imports_and_basic_usage():
     print("Testing imports and basic initialization...")
     
     # Test imports
-    from china_stock_data import StockData, IndexMarket, StockMarket
+    from china_stock_data import StockData, IndexMarket, MarketData
     print("✅ All imports successful")
     
     # Test StockData initialization
@@ -21,10 +21,10 @@ def test_imports_and_basic_usage():
     print(f"✅ IndexMarket initialized: {len(index.fetchers)} fetchers available")
     assert len(index.fetchers) > 0, "IndexMarket should have fetchers"
     
-    # Test StockMarket initialization
-    market = StockMarket()
-    print(f"✅ StockMarket initialized: {len(market.fetchers)} fetchers available")
-    assert len(market.fetchers) > 0, "StockMarket should have fetchers"
+    # Test MarketData initialization
+    market = MarketData()
+    print(f"✅ MarketData initialized: {len(market.fetchers)} fetchers available")
+    assert len(market.fetchers) > 0, "MarketData should have fetchers"
     
     # Test fetcher access (without actual data fetching)
     assert "dividend" in stock.fetchers, "dividend fetcher should be available"
