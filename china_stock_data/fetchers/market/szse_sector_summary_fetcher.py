@@ -22,9 +22,11 @@ class SZSESectorSummaryFetcher(BaseFetcher):
 
     def fetch_data(self) -> pd.DataFrame:
         try:
-            # Use current year-month and "当月" symbol as default
-            date = datetime.now().strftime('%Y%m')
-            data = ak.stock_szse_sector_summary(symbol="当月", date=date)
+            # Get parameters from entry class instance
+            symbol = self.market_data.symbol
+            date = self.market_data.date_yyyymm  # Pre-formatted YYYYMM
+            
+            data = ak.stock_szse_sector_summary(symbol=symbol, date=date)
             if data is None or data.empty:
                 return pd.DataFrame()
             return data

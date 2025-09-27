@@ -18,7 +18,7 @@ class MarketSentimentFetcher(BaseFetcher):
         super().__init__(path)
         
         
-    def fetch_data(self):
+    def fetch_data(self) -> pd.DataFrame:
         try:
             print("Fetching market sentiment data!")
             data = ak.index_news_sentiment_scope()

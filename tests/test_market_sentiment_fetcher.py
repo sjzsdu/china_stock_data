@@ -37,7 +37,7 @@ class TestMarketSentimentFetcher(unittest.TestCase):
 
     def test_fetcher_name(self):
         """Test that fetcher name is correctly set."""
-        self.assertEqual(MarketSentimentFetcher.name, "market_sentiment")
+        self.assertEqual(MarketSentimentFetcher.name, "market_sentiment|index_news_sentiment_scope")
 
 
 if __name__ == '__main__':

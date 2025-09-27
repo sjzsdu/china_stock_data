@@ -48,9 +48,9 @@ class TestIndexFetchers(unittest.TestCase):
 
     def test_fetcher_names(self):
         """Test that fetcher names are correctly set."""
-        self.assertEqual(IndexComponentsFetcher.name, "index_components")
-        self.assertEqual(IndexListFetcher.name, "index_list")
-        self.assertEqual(UsIndexFetcher.name, "us_index")
+        self.assertEqual(IndexComponentsFetcher.name, "index_components|index_stock_cons_csindex")
+        self.assertEqual(IndexListFetcher.name, "index_list|index_stock_info")
+        self.assertEqual(UsIndexFetcher.name, "us_index|index_us_stock_sina")
 
 
 if __name__ == '__main__':

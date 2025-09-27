@@ -22,8 +22,9 @@ class SZSEAreaSummaryFetcher(BaseFetcher):
 
     def fetch_data(self) -> pd.DataFrame:
         try:
-            # Use current year-month as default
-            date = datetime.now().strftime('%Y%m')
+            # Get pre-formatted YYYYMM date from entry class instance
+            date = self.market_data.date_yyyymm
+            
             data = ak.stock_szse_area_summary(date=date)
             if data is None or data.empty:
                 return pd.DataFrame()

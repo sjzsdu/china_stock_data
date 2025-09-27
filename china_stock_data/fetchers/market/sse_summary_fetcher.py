@@ -21,6 +21,7 @@ class SSESummaryFetcher(BaseFetcher):
 
     def fetch_data(self) -> pd.DataFrame:
         try:
+            # stock_sse_summary does not require parameters
             data = ak.stock_sse_summary()
             if data is None or data.empty:
                 return pd.DataFrame()

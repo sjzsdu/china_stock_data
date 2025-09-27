@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from china_stock_data.stock_market import StockMarket
+from china_stock_data import StockMarket  # Use backward compatibility alias
 
 
 class TestStockMarket(unittest.TestCase):

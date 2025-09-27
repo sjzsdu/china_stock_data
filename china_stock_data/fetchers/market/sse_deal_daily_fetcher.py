@@ -22,9 +22,9 @@ class SSEDealDailyFetcher(BaseFetcher):
 
     def fetch_data(self) -> pd.DataFrame:
         try:
-            # Use yesterday's date as trading data is available after market close
-            yesterday = datetime.now() - timedelta(days=1)
-            date = yesterday.strftime('%Y%m%d')
+            # Get pre-formatted YYYYMMDD date from entry class instance
+            date = self.market_data.date_yyyymmdd
+            
             data = ak.stock_sse_deal_daily(date=date)
             if data is None or data.empty:
                 return pd.DataFrame()

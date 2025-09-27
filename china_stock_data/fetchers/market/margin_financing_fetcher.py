@@ -30,11 +30,14 @@ class MarginFinancingFetcher(BaseFetcher):
                 sh = pd.DataFrame()
             if sz is None or sz.empty:
                 sz = pd.DataFrame()
-            if not sh.empty:
-                sh['market'] = 'SH'
-            if not sz.empty:
-                sz['market'] = 'SZ'
-            data = pd.concat([sh, sz], ignore_index=True, sort=False)
-            return data
+            if sh.empty and sz.empty:
+                return pd.DataFrame()
+            # Combine data if both have data
+            if not sh.empty and not sz.empty:
+                return pd.concat([sh, sz], ignore_index=True)
+            elif not sh.empty:
+                return sh
+            else:
+                return sz
         except Exception:
             return pd.DataFrame()

@@ -70,10 +70,10 @@ class TestStockFetchers(unittest.TestCase):
 
     def test_fetcher_names(self):
         """Test that fetcher names are correctly set."""
-        self.assertEqual(StockHistFetcher.name, "kline")
-        self.assertEqual(StockInfoFetcher.name, "info")
-        self.assertEqual(StockRealtimeFetcher.name, "bid_ask")
-        self.assertEqual(StockChipFetcher.name, "chip")
+        self.assertEqual(StockHistFetcher.name, "kline|stock_zh_a_hist")
+        self.assertEqual(StockInfoFetcher.name, "info|stock_individual_info_em")
+        self.assertEqual(StockRealtimeFetcher.name, "bid_ask|stock_bid_ask_em")
+        self.assertEqual(StockChipFetcher.name, "chip|stock_cyq_em")
 
 
 if __name__ == '__main__':
