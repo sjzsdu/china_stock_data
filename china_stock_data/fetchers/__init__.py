@@ -7,8 +7,8 @@ from .market import (
     SZSESectorSummaryFetcher, SSEDealDailyFetcher
 )
 from .fundamentals import (
-    BlockTradeFetcher, DividendFetcher, EarningsFetcher, FinancialStatementsFetcher,
-    RepurchaseFetcher, RestrictedReleaseFetcher, ShareChangeFetcher, TopShareholdersFetcher
+    DividendFetcher, EarningsFetcher, FinancialStatementsFetcher,
+    RepurchaseFetcher, RestrictedReleaseFetcher, TopShareholdersFetcher
 )
 
 stock_fetchers = [StockHistFetcher, StockInfoFetcher, StockChipFetcher, StockRealtimeFetcher]
@@ -19,8 +19,8 @@ market_fetchers = [
     SZSESectorSummaryFetcher, SSEDealDailyFetcher
 ]
 fundamentals_fetchers = [
-    BlockTradeFetcher, DividendFetcher, EarningsFetcher, FinancialStatementsFetcher,
-    RepurchaseFetcher, RestrictedReleaseFetcher, ShareChangeFetcher, TopShareholdersFetcher
+    DividendFetcher, EarningsFetcher, FinancialStatementsFetcher,
+    RepurchaseFetcher, RestrictedReleaseFetcher, TopShareholdersFetcher
 ]
 
 __version__ = '0.1.7'

@@ -18,7 +18,10 @@ class TopShareholdersFetcher(BaseFetcher):
 
     def fetch_data(self) -> pd.DataFrame:
         try:
-            data = ak.stock_gdfx_free_top_10_em(symbol=self.stock_data.symbol)
+            # This API requires both symbol and date parameters
+            # Use sh/sz prefix format and recent date
+            symbol_with_prefix = f"sh{self.stock_data.symbol}" if self.stock_data.symbol.startswith('6') else f"sz{self.stock_data.symbol}"
+            data = ak.stock_gdfx_free_top_10_em(symbol=symbol_with_prefix, date="20240930")
             if data is None or data.empty:
                 return pd.DataFrame()
             return data

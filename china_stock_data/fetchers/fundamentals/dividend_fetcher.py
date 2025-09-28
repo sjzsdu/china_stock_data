@@ -18,9 +18,13 @@ class DividendFetcher(BaseFetcher):
 
     def fetch_data(self) -> pd.DataFrame:
         try:
-            data = ak.stock_fhps_em(symbol=self.stock_data.symbol)
+            # Use date parameter for this API
+            data = ak.stock_fhps_em(date="20231231")
             if data is None or data.empty:
                 return pd.DataFrame()
+            # Filter by symbol if data contains multiple stocks
+            if '股票代码' in data.columns:
+                data = data[data['股票代码'] == self.stock_data.symbol]
             return data
         except Exception:
             return pd.DataFrame()

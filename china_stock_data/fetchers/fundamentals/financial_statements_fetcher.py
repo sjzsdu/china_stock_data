@@ -19,17 +19,27 @@ class FinancialStatementsFetcher(BaseFetcher):
         super().__init__(path)
 
     def fetch_data(self) -> pd.DataFrame:
-        symbol = self.stock_data.symbol
+        # Use date parameter instead of symbol for these APIs
+        date = "20240331"  # Default to recent quarter
         try:
-            lrb = ak.stock_lrb_em(symbol=symbol)
+            lrb = ak.stock_lrb_em(date=date)
+            # Filter by symbol if data contains multiple stocks
+            if not lrb.empty and '股票代码' in lrb.columns:
+                lrb = lrb[lrb['股票代码'] == self.stock_data.symbol]
         except Exception:
             lrb = pd.DataFrame()
         try:
-            zcfz = ak.stock_zcfz_em(symbol=symbol)
+            zcfz = ak.stock_zcfz_em(date=date)
+            # Filter by symbol if data contains multiple stocks
+            if not zcfz.empty and '股票代码' in zcfz.columns:
+                zcfz = zcfz[zcfz['股票代码'] == self.stock_data.symbol]
         except Exception:
             zcfz = pd.DataFrame()
         try:
-            xjll = ak.stock_xjll_em(symbol=symbol)
+            xjll = ak.stock_xjll_em(date=date)
+            # Filter by symbol if data contains multiple stocks
+            if not xjll.empty and '股票代码' in xjll.columns:
+                xjll = xjll[xjll['股票代码'] == self.stock_data.symbol]
         except Exception:
             xjll = pd.DataFrame()
         dfs = []

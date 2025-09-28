@@ -20,13 +20,20 @@ class EarningsFetcher(BaseFetcher):
         return is_within_days(saved_date)
 
     def fetch_data(self) -> pd.DataFrame:
-        symbol = self.stock_data.symbol
+        # Use date parameter for these APIs
+        date = "20240331"  # Default to recent quarter
         try:
-            report = ak.stock_yjbb_em(symbol=symbol)
+            report = ak.stock_yjbb_em(date=date)
+            # Filter by symbol if data contains multiple stocks
+            if not report.empty and '股票代码' in report.columns:
+                report = report[report['股票代码'] == self.stock_data.symbol]
         except Exception:
             report = pd.DataFrame()
         try:
-            forecast = ak.stock_yjyg_em(symbol=symbol)
+            forecast = ak.stock_yjyg_em(date=date)
+            # Filter by symbol if data contains multiple stocks
+            if not forecast.empty and '股票代码' in forecast.columns:
+                forecast = forecast[forecast['股票代码'] == self.stock_data.symbol]
         except Exception:
             forecast = pd.DataFrame()
         dfs = []

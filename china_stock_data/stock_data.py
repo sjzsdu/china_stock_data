@@ -63,6 +63,14 @@ class StockData:
             else:
                 self.fetchers[fetcher.name] = fetcher_instance
         
+    def key(self) -> str:
+        """
+        Generate unique key for this stock instance.
+        
+        Returns:
+            Unique identifier string for stock data
+        """
+        return self.symbol
     def get_data(self, name: str) -> pd.DataFrame:
         """
         Get data by fetcher name.
