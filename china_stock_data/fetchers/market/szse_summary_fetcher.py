@@ -22,12 +22,8 @@ class SZSESummaryFetcher(BaseFetcher):
 
     def fetch_data(self) -> pd.DataFrame:
         try:
-            # Get date from entry class instance (YYYYMMDD format)
-            date = self.market_data.date_yyyymmdd
-            
-            # Convert YYYY-MM-DD to YYYYMMDD if needed
-            if len(date) == 10 and '-' in date:  # YYYY-MM-DD format
-                date = date.replace('-', '')
+            # This API requires YYYYMM format for monthly data
+            date = self.market_data.date_yyyymm
             
             data = ak.stock_szse_summary(date=date)
             if data is None or data.empty:

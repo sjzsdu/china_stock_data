@@ -22,11 +22,10 @@ class SZSESectorSummaryFetcher(BaseFetcher):
 
     def fetch_data(self) -> pd.DataFrame:
         try:
-            # Get parameters from entry class instance
-            symbol = self.market_data.symbol
-            date = self.market_data.date_yyyymm  # Pre-formatted YYYYMM
+            # This API requires YYYYMM format, not YYYYMMDD
+            date = self.market_data.date_yyyymm
             
-            data = ak.stock_szse_sector_summary(symbol=symbol, date=date)
+            data = ak.stock_szse_sector_summary(date=date)
             if data is None or data.empty:
                 return pd.DataFrame()
             return data
