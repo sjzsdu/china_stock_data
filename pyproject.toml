@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "china_stock_data"
-version = "0.2.1"
+version = "0.2.2"
 description = ""
 authors = ["sunjuzhong <129019668+sunjuzhong@users.noreply.github.com>"]
 readme = "README.md"
