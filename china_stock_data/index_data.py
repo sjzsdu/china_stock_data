@@ -3,16 +3,16 @@ import pandas as pd
 from china_stock_data.fetchers import index_fetchers
 
 
-class IndexMarket:
+class IndexData:
     """
-    Index market data class for fetching index-related data.
+    Index data class for fetching index-related data.
     
     Supports index components, index lists, and US indices data.
     """
 
     def __init__(self, symbol: Optional[str] = None, index: Optional[str] = None) -> None:
         """
-        Initialize IndexMarket instance.
+        Initialize IndexData instance.
         
         Args:
             symbol: Market symbol

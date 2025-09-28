@@ -1,17 +1,16 @@
-#!/usr/bin/env python3
 """
-Test script for the new IndexMarket and MarketData classes
+Test script for the new IndexData and MarketData classes
 """
 
-from china_stock_data import IndexMarket, MarketData
+from china_stock_data import IndexData, MarketData
 
 def test_index_market():
-    """Test IndexMarket class functionality"""
-    print("Testing IndexMarket...")
+    """Test IndexData class functionality"""
+    print("Testing IndexData...")
     
-    # Test with index code
-    index_market = IndexMarket(index="000300")
-    print(f"IndexMarket key: {index_market.key()}")
+    # Test with index parameter
+    index_market = IndexData(index="000300")
+    print(f"IndexData key: {index_market.key()}")
     
     # List available fetchers
     print("Available index fetchers:")

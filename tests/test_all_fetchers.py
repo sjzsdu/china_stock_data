@@ -3,7 +3,7 @@
 Test script for all fetchers with improved name handling
 """
 
-from china_stock_data import StockData, IndexMarket, MarketData
+from china_stock_data import StockData, IndexData, MarketData
 
 def test_stock_fetchers():
     """Test stock data fetchers with pipe separator names"""
@@ -42,7 +42,7 @@ def test_index_fetchers():
     """Test index market fetchers with pipe separator names"""
     print("\n=== Testing Index Market Fetchers ===")
     
-    index_market = IndexMarket(index="000300")
+    index_market = IndexData(index="000300")
     
     print("Available index fetchers:")
     for name in sorted(index_market.fetchers.keys()):
